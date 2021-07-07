@@ -47,6 +47,7 @@ class RosSystemGenerator extends AbstractGenerator {
 	@Inject extension LaunchFileCompiler_ROS2
 	@Inject extension SetupPyCompile
 	@Inject extension DockerContainerCompiler
+	@Inject extension RosInstallCompiler
 	
 	//@Inject extension InstallScriptCompiler
 	
@@ -73,6 +74,9 @@ class RosSystemGenerator extends AbstractGenerator {
  		for (system : resource.allContents.toIterable.filter(RosSystem)){
  				fsa.generateFile(system.getName().toLowerCase+"/Dockerfile",system.compile_toDockerContainer)
  				}
+ 		for (system : resource.allContents.toIterable.filter(RosSystem)){
+ 				fsa.generateFile(system.getName().toLowerCase+"/.rosinstall",system.compile_toRosInstall)
+ 		}
 
 		//ROS2 package
 		for (system : resource.allContents.toIterable.filter(RosSystem)){
